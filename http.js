@@ -2,6 +2,8 @@
 
 const axios = require('axios')
 const ApiError = require('./apiError')
+const { version } = require('./package.json')
+
 /**
  * Wrapper of Axios to do API request to Doku Core API
  * @return {Promise} of API response, or exception during request
@@ -10,7 +12,7 @@ const ApiError = require('./apiError')
 class Http {
   request(method, url, payload = {}) {
     let headers = {
-      'user-agent': 'unodoku-nodejs/1.0.0'
+      'user-agent': `unodoku-nodejs/${version}`
     }
     if (method === 'post') {
       headers['content-type'] = 'application/x-www-form-urlencoded'

@@ -1,6 +1,6 @@
 {
   "name": "unodoku-nodejs",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Unofficial Doku JavaScript (NodeJS) Library",
   "main": "api.js",
   "repository": {
