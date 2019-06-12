@@ -7,10 +7,17 @@ const Core = require('./core')
  * https://www.doku.com/API/index.html?javascript#api
  * @return {Promise} - Promise that contains JSON API response decoded as Object
  */
-class Api extends Core {
-
-  constructor (input) {
-    super(input)
+class DokuApi extends Core {
+  /**
+   * Initiate with options
+   * @param  {Object} options - should have these props:
+   * isProduction, sharedKey, mallId
+   * @param {Boolean} options.isProduction - Set Api Environtment to Production
+   * @param {String} options.sharedKey - Doku API Shared Key
+   * @param {String} options.mallId - Doku API Mall Id
+   */
+  constructor (options) {
+    super(options)
   }
   
   doPrePayment (data) {
@@ -57,4 +64,4 @@ class Api extends Core {
 
 }
 
-module.exports = Api
+module.exports = DokuApi
