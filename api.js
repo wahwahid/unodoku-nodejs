@@ -54,6 +54,17 @@ class DokuApi extends Core {
 
   doGeneratePaycode (data, short) {
     let apiUrl = this.config.getCoreApiBaseUrl() + (short ? '/doGeneratePaymentCode' : '/DoGeneratePaycodeVA')
+    data.req_basket = this.utils.formatBasket(data.req_basket)
+    if (this.utils.isEmpty(data.req_mall_id)) {
+      data.req_mall_id = this.config.get().mallId
+    }
+    if (this.utils.isEmpty(data.req_words)) {
+      data.req_words = this.utils.doCreateWords({
+        amount: data.req_amount,
+        invoice: data.req_trans_id_merchant,
+        currency: this.utils.getCurrency(data.req_currency)
+      })
+    }
     let responsePromise = this.http.request(
       'post',
       apiUrl,
