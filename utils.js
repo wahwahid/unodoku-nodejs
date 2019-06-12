@@ -1,6 +1,8 @@
 'use strict'
 
+const _ = require('lodash')
 const sha1 = require('crypto-js/sha1')
+const countries = require('i18n-iso-countries')
 
 class Utils {
 
@@ -13,6 +15,10 @@ class Utils {
       return true
     }
     return false
+  }
+
+  getCurrency(alpha2 = 'ID') {
+    return countries.alpha2ToNumeric(alpha2)
   }
 
 	doCreateWords (data) {
@@ -84,11 +90,11 @@ class Utils {
 
 	formatBasket(data){
     let parseBasket = ''
-		if (!this.isEmpty(data)) {
-			for (basket in data) {
-				parseBasket = parseBasket + basket['name'] + ',' + basket['amount'] + ',' + basket['quantity'] + ',' + basket['subtotal'] + ';'
+		if (_.isArray(data)) {
+			for (let basket of data) {
+				parseBasket = parseBasket + basket['name'] + ',' + Number(basket['amount']).toFixed(2) + ',' + basket['quantity'] + ',' + Number(basket['subtotal'] || (basket['amount'] * basket['quantity'])).toFixed(2) + ';'
 			}
-		}
+    }
 		return parseBasket
 	}
 
