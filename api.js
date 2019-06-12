@@ -26,18 +26,18 @@ class DokuApi extends Core {
     let responsePromise = this.http.request(
       'post',
       apiUrl,
-      { data: JSON.stringify(data) }
+      data
     )
     return responsePromise
   }
 
-  doPayment () {
+  doPayment (data) {
     let apiUrl = this.config.getCoreApiBaseUrl() + '/paymentMip'
     data.req_basket = this.utils.formatBasket(data.req_basket)
     let responsePromise = this.http.request(
       'post',
       apiUrl,
-      { data: JSON.stringify(data) }
+      data
     )
     return responsePromise
   }
@@ -47,17 +47,17 @@ class DokuApi extends Core {
     let responsePromise = this.http.request(
       'post',
       apiUrl,
-      { data: JSON.stringify(data) }
+      data
     )
     return responsePromise
   }
 
-  doGeneratePaycode (data) {
-    let apiUrl = this.config.getCoreApiBaseUrl() + '/DoGeneratePaycodeVA'
+  doGeneratePaycode (data, short) {
+    let apiUrl = this.config.getCoreApiBaseUrl() + (short ? '/doGeneratePaymentCode' : '/DoGeneratePaycodeVA')
     let responsePromise = this.http.request(
       'post',
       apiUrl,
-      { data: JSON.stringify(data) }
+      data
     )
     return responsePromise
   }

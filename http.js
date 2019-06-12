@@ -10,9 +10,10 @@ const ApiError = require('./apiError')
 class Http {
   request(method, url, payload = {}) {
     let headers = {
-      'content-type': 'application/json',
-      'accept': 'application/json',
       'user-agent': 'unodoku-nodejs/1.0.0'
+    }
+    if (method === 'post') {
+      headers['content-type'] = 'application/x-www-form-urlencoded'
     }
     return new Promise(function (resolve, reject) {
       // Reject if param is not JSON
@@ -27,8 +28,8 @@ class Http {
         method,
         headers,
         url,
-        data: method != 'get' ? payload : null,
-        params: method == 'get' ? payload : null
+        data: method !== 'get' ? `data=${JSON.stringify(payload)}` : null,
+        params: method === 'get' ? payload : null
       }).then(function (res) {
         // Reject core API error status code
         if (res.data.hasOwnProperty('status_code') && res.data.status_code >= 300 && res.data.status_code != 407) {
