@@ -88,6 +88,10 @@ class Utils {
     }
   }
 
+  validateWords(data) {
+    return data['words'] === this.doCreateWords(data)
+  }
+
   formatBasket(data) {
     let parseBasket = ''
     if (_.isArray(data)) {
